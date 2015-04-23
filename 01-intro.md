@@ -248,9 +248,9 @@ To do that, simply type `clear all`.
 > 
 > ~~~ {.matlab}
 > mass = 47.5
-> age = 122
-> mass = mass * 2.0
-> age = age - 20
+> day = 1
+> double_mass = mass * 2.0
+> day = day+5
 > ~~~
 
 Now that our data is in memory, we can start doing things with it.
@@ -303,9 +303,17 @@ you need to tell MATLAB explicitly. For example, the command,
 x = int16(325);
 ~~~
 
-
 assigns the value `325` to the name `x`, storing it as a 16-bit signed
 integer.
+
+
+One conversion that comes in handy is the conversion between numbers and 
+strings: 
+
+~~~ {.matlab}
+string = num2str(12);
+number = str2num(string);
+~~~
 
 Let's create an 8-by-8 "magic" Matrix:
 
@@ -463,27 +471,12 @@ ans =
 
 > ## Slicing {.challenge}
 > 
-> A subsection of an array is called a [slice](../../gloss.html#slice). We can take slices of character strings as well:
-> 
-> ~~~ {.matlab}
-> element = 'oxygen';
-> disp(['first three characters: ', element(1:3)])
-> disp(['last three characters: ', element(4:6)])
-> ~~~
-> 
-> ~~~ {.output}
-> first three characters: oxy
-> last three characters: gen
-> ~~~
-> 
-> 1. What is the value of `element(4:end)`? What about `element(1:2:end)`? Or `element(2:end - 1)`? 
-> 
-> 1. For any size array, Matlab allows us to index with a single colon operator (`:`).
-> This can have surprising effects.
-> For instance, compare `element` with `element(:)`. What is `size(element)` versus `size(element(:))`?
-> Finally,
-> try using the single colon on the matrix `M` above: `M(:)`.
-> What seems to be happening when we use the single colon operator for slicing?
+> A subsection of an array is called a [slice](../../gloss.html#slice). Display all the following values:
+> 1. third to last row, first to third column.
+>
+> 1. Checkerboard.
+>
+> 1. Finally, what happens if you type M(:)?
 
 Now that we know how to access data we want to compute with,
 we're ready to analyze `patient_data`.
@@ -547,6 +540,17 @@ help mean
 We can also compute other statistics, like the maximum, minimum and
 standard deviation.
 
+Maximum:
+~~~ {.matlab}
+maximum = max(patient_data(:));
+~~~
+
+And now to display it, we have to convert the number into a string:
+~~~ {.matlab}
+disp(['Maximum inflammation: ', num2str(maximum)]);
+~~~
+
+Or we can do all that in one step:
 ~~~ {.matlab}
 disp(['Maximum inflammation: ', num2str(max(patient_data(:)))]);
 disp(['Minimum inflammation: ', num2str(min(patient_data(:)))]);
@@ -709,6 +713,15 @@ ans =
 
 which is the average inflammation per patient across
 all days.
+
+Let's see if we can do the same thing with the maximum.
+
+~~~ {.matlab}
+help max;
+~~~
+
+The help text suggests that the syntax is a bit different. We will have to 
+remember this, when we want to use it. 
 
 
 The mathematician Richard Hamming once said,

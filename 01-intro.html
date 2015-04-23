@@ -128,9 +128,9 @@ weight_kg
 <li>Predict what variables refer to what values after each statement in the following program:</li>
 </ol>
 <pre class="sourceCode matlab"><code class="sourceCode matlab">mass = <span class="fl">47.5</span>
-age = <span class="fl">122</span>
-mass = mass * <span class="fl">2.0</span>
-age = age - <span class="fl">20</span></code></pre>
+day = <span class="fl">1</span>
+double_mass = mass * <span class="fl">2.0</span>
+day = day+<span class="fl">5</span></code></pre>
 </div>
 </div>
 <p>Now that our data is in memory, we can start doing things with it. First, let's find out its size or <a href="gloss.html#shape">shape</a>:</p>
@@ -153,6 +153,9 @@ age = age - <span class="fl">20</span></code></pre>
 <p>This output tells us that <code>patient_data</code> refers to an array of double precision floating-point numbers. This is the default numeric data type in MATLAB. If you want to store other numeric data types, you need to tell MATLAB explicitly. For example, the command,</p>
 <pre class="sourceCode matlab"><code class="sourceCode matlab">x = int16(<span class="fl">325</span>);</code></pre>
 <p>assigns the value <code>325</code> to the name <code>x</code>, storing it as a 16-bit signed integer.</p>
+<p>One conversion that comes in handy is the conversion between numbers and strings:</p>
+<pre class="sourceCode matlab"><code class="sourceCode matlab">string = num2str(<span class="fl">12</span>);
+number = str2num(string);</code></pre>
 <p>Let's create an 8-by-8 &quot;magic&quot; Matrix:</p>
 <pre class="sourceCode matlab"><code class="sourceCode matlab">M = magic(<span class="fl">8</span>)</code></pre>
 <pre class="output"><code>ans =
@@ -233,15 +236,10 @@ age = age - <span class="fl">20</span></code></pre>
 <h2><span class="glyphicon glyphicon-pencil"></span>Slicing</h2>
 </div>
 <div class="panel-body">
-<p>A subsection of an array is called a <a href="../../gloss.html#slice">slice</a>. We can take slices of character strings as well:</p>
-<pre class="sourceCode matlab"><code class="sourceCode matlab">element = <span class="st">&#39;oxygen&#39;</span>;
-disp([<span class="st">&#39;first three characters: &#39;</span>, element(<span class="fl">1</span>:<span class="fl">3</span>)])
-disp([<span class="st">&#39;last three characters: &#39;</span>, element(<span class="fl">4</span>:<span class="fl">6</span>)])</code></pre>
-<pre class="output"><code>first three characters: oxy
-last three characters: gen</code></pre>
+<p>A subsection of an array is called a <a href="../../gloss.html#slice">slice</a>. Display all the following values: 1. third to last row, first to third column.</p>
 <ol style="list-style-type: decimal">
-<li><p>What is the value of <code>element(4:end)</code>? What about <code>element(1:2:end)</code>? Or <code>element(2:end - 1)</code>?</p></li>
-<li><p>For any size array, Matlab allows us to index with a single colon operator (<code>:</code>). This can have surprising effects. For instance, compare <code>element</code> with <code>element(:)</code>. What is <code>size(element)</code> versus <code>size(element(:))</code>? Finally, try using the single colon on the matrix <code>M</code> above: <code>M(:)</code>. What seems to be happening when we use the single colon operator for slicing?</p></li>
+<li><p>Checkerboard.</p></li>
+<li><p>Finally, what happens if you type M(:)?</p></li>
 </ol>
 </div>
 </div>
@@ -282,9 +280,9 @@ last three characters: gen</code></pre>
 
      See also: median, mode.</code></pre>
 <p>We can also compute other statistics, like the maximum, minimum and standard deviation.</p>
-<pre class="sourceCode matlab"><code class="sourceCode matlab">disp([<span class="st">&#39;Maximum inflammation: &#39;</span>, num2str(max(patient_data(:)))]);
-disp([<span class="st">&#39;Minimum inflammation: &#39;</span>, num2str(min(patient_data(:)))]);
-disp([<span class="st">&#39;Standard deviation: &#39;</span>, num2str(std(patient_data(:)))]);</code></pre>
+<p>Maximum: <sub>~</sub> {.matlab} maximum = max(patient_data(:)); <sub>~</sub></p>
+<p>And now to display it, we have to convert the number into a string: <sub>~</sub> {.matlab} disp(['Maximum inflammation: ', num2str(maximum)]); <sub>~</sub></p>
+<p>Or we can do all that in one step: <sub>~</sub> {.matlab} disp(['Maximum inflammation: ', num2str(max(patient_data(:)))]); disp(['Minimum inflammation: ', num2str(min(patient_data(:)))]); disp(['Standard deviation: ', num2str(std(patient_data(:)))]); <sub>~</sub></p>
 <pre class="output"><code>Maximum inflammation: 20
 Minimum inflammation: 0
 Standard deviation: 4.6148</code></pre>
@@ -386,6 +384,9 @@ disp([<span class="st">&#39;Maximum inflation for patient 1: &#39;</span>, max(p
    7.0500
    5.9000</code></pre>
 <p>which is the average inflammation per patient across all days.</p>
+<p>Let's see if we can do the same thing with the maximum.</p>
+<pre class="sourceCode matlab"><code class="sourceCode matlab">help max;</code></pre>
+<p>The help text suggests that the syntax is a bit different. We will have to remember this, when we want to use it.</p>
 <p>The mathematician Richard Hamming once said, &quot;The purpose of computing is insight, not numbers,&quot; and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few features of MATLAB here.</p>
 <p>Let's display a heat map of our data:</p>
 <pre class="sourceCode matlab"><code class="sourceCode matlab">imagesc(patient_data)</code></pre>
